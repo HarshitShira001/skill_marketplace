@@ -1,0 +1,11 @@
+const express = require('express'); const router = express.Router();
+const { initiatePayment, verifyPayment, getPayments, markPaymentDone, requestCompletion, confirmCompletion, declineCompletion } = require('../controllers/paymentController');
+const { protect } = require('../middleware/authMiddleware');
+router.get('/', protect, getPayments);
+router.post('/initiate', protect, initiatePayment);
+router.post('/verify', protect, verifyPayment);
+router.put('/mark-paid/:requestId', protect, markPaymentDone);
+router.put('/request-completion/:requestId', protect, requestCompletion);
+router.put('/confirm-completion/:requestId', protect, confirmCompletion);
+router.put('/decline-completion/:requestId', protect, declineCompletion);
+module.exports = router;
